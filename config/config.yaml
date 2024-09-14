@@ -1,0 +1,11 @@
+artifacts: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_data: train_csv.zip
+  local_data_file: artifacts/data_ingestion/train_csv.zip
+  unzip_dir: artifacts/data_ingestion
+
+data_preprocessing:
+  root_dir: artifacts/data_preprocessing
+  local_preprocessed_file: artifacts/data_preprocessing/preprocessed.csv

@@ -1,0 +1,8 @@
+stages:
+  data_ingestion:
+    cmd: python src/pipeline/stage_01_data_pipeline.py
+    deps: #dependency
+      - src/pipeline/stage_01_data_pipeline.py
+      - config/config.yaml
+    outs: #expected_results
+      - artifacts/data_ingestion/train.csv
