@@ -1,7 +1,8 @@
 from config.configuration import ConfigurationManager
 from component.data_ingestion import DataIngestion
 from logger import logger
-
+import os
+print(f"Current Working directory:{os.getcwd()}")
 STAGE_NAME_01 ="Data Ingestion stage"
 
 class DataIngestionPipeline:
