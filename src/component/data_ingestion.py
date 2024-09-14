@@ -12,7 +12,7 @@ class DataIngestion:
     def copy_file(self):
         "Copy zip file in the artifact/data_ingestion folder"
         
-        if not os.path.exits(self.data_ingestion_config.local_data_file):
+        if not os.path.exists(self.data_ingestion_config.local_data_file):
            
            shutil.copy(self.data_ingestion_config.source_data,self.data_ingestion_config.local_data_file)
            file_path, file_name = os.path.split(self.data_ingestion_config.local_data_file)
@@ -23,10 +23,16 @@ class DataIngestion:
         unzip_path = self.data_ingestion_config.unzip_dir
         
         if os.path.exists(self.data_ingestion_config.local_data_file):
-            with zipfile.ZipFile(self.data_ingestion_config.local_data_file,'r') as zip_ref:
-                zip_ref.extractall(unzip_path)
-                
-                logger.info(f"The zip file has been extracted in this path {unzip_path}")
+            try:
+                with zipfile.ZipFile(self.data_ingestion_config.local_data_file,'r') as zip_ref:
+                    zip_ref.extractall(unzip_path)
+                    
+                    logger.info(f"The zip file has been extracted in this path {unzip_path}")
+            except zipfile.BadZipFile:
+                logger.error(f"False to extract {self.data_ingestion_config.local_data_file}: Bad zip file")
+            except Exception as e:
+                logger.error(f"Error Extracting zip file: {str (e)}")    
+                raise e
             
         else:
             logger.info("The source file is missing")

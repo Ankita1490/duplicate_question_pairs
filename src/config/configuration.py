@@ -9,6 +9,8 @@ from entity.config_entity import DataIngestionConfig, DataProcessingConfig
 class ConfigurationManager:
     def __init__(self, config_file_path = CONFIG_FILE_PATH ):
         self.config = read_yaml(config_file_path)
+        if not self.config.artifacts:
+            raise ValueError("Artifacts path is not defined in the config file")
         self.is_exists = os.path.exists(self.config.artifacts)
         if not self.is_exists:
             create_directories([self.config.artifacts])
